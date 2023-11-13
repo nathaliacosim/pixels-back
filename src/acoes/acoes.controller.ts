@@ -1,34 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { AcoesService } from './acoes.service';
-import { CreateAcoeDto } from './dto/create-acoe.dto';
-import { UpdateAcoeDto } from './dto/update-acoe.dto';
+import { CreateAcaoDto } from './dto/create-acao.dto';
+import { UpdateAcaoDto } from './dto/update-acao.dto';
+import { Acao } from './entities/acao.entity';
 
 @Controller('acoes')
 export class AcoesController {
-  constructor(private readonly acoesService: AcoesService) {}
+  constructor(private readonly acoesService: AcoesService) { }
 
   @Post()
-  create(@Body() createAcoeDto: CreateAcoeDto) {
-    return this.acoesService.create(createAcoeDto);
+  async create(@Body() createAcaoDto: CreateAcaoDto) {
+    return this.acoesService.create(createAcaoDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Acao[]> {
     return this.acoesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.acoesService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<Acao> {
+    return this.acoesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAcoeDto: UpdateAcoeDto) {
-    return this.acoesService.update(+id, updateAcoeDto);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateAcaoDto: UpdateAcaoDto): Promise<Acao> {
+    return this.acoesService.update(id, updateAcaoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.acoesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.acoesService.remove(id);
   }
 }

@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAcoeDto } from './dto/create-acoe.dto';
-import { UpdateAcoeDto } from './dto/update-acoe.dto';
+import { UpdateAcaoDto } from './dto/update-acao.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Acao } from './entities/acao.entity';
+import { CreateAcaoDto } from './dto/create-acao.dto';
 
 @Injectable()
 export class AcoesService {
-  create(createAcoeDto: CreateAcoeDto) {
-    return 'This action adds a new acoe';
+
+  constructor(@InjectModel('Acao') private readonly acoesModel: Model<Acao>) { }
+
+  async findAll() {
+    return await this.acoesModel.find().exec();
   }
 
-  findAll() {
-    return `This action returns all acoes`;
+  async findOne(id: string) {
+    return await this.acoesModel.findById(id).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} acoe`;
+  async create(acao: CreateAcaoDto) {
+    const acoes = new this.acoesModel(acao);
+    return await acoes.save();
   }
 
-  update(id: number, updateAcoeDto: UpdateAcoeDto) {
-    return `This action updates a #${id} acoe`;
+  async update(id: string, acao: UpdateAcaoDto) {
+    await this.acoesModel.updateOne({ _id: id }, acao).exec();
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} acoe`;
+  async remove(id: string) {
+    return await this.acoesModel.deleteOne({ _id: id }).exec();
   }
 }

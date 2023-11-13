@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { EntradasModule } from './entradas/entradas.module';
 import { SaidasModule } from './saidas/saidas.module';
 import { ColaboradoresModule } from './colaboradores/colaboradores.module';
 import { AcoesModule } from './acoes/acoes.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [EntradasModule, SaidasModule, ColaboradoresModule, AcoesModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    MongooseModule.forRoot('mongodb+srv://pixelsdecarinho:<senha>@pixels.rb1rza5.mongodb.net/pixels?retryWrites=true&w=majority'),
+    EntradasModule,
+    SaidasModule,
+    ColaboradoresModule,
+    AcoesModule]
 })
-export class AppModule {}
+export class AppModule { }
