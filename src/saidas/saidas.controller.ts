@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { SaidasService } from './saidas.service';
 import { CreateSaidaDto } from './dto/create-saida.dto';
 import { UpdateSaidaDto } from './dto/update-saida.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Saida } from './entities/saida.entity';
 
+@ApiTags('saidas')
 @Controller('saidas')
 export class SaidasController {
-  constructor(private readonly saidasService: SaidasService) {}
+  constructor(private readonly saidasService: SaidasService) { }
 
   @Post()
-  create(@Body() createSaidaDto: CreateSaidaDto) {
-    return this.saidasService.create(createSaidaDto);
+  @ApiResponse({ status: 201, description: 'Saida criada com sucesso', type: Saida })
+  async create(@Body() createsaidaDto: CreateSaidaDto) {
+    return this.saidasService.create(createsaidaDto);
   }
 
   @Get()
-  findAll() {
+  @ApiResponse({ status: 200, description: 'Lista de saidas', type: [Saida] })
+  async findAll() {
     return this.saidasService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.saidasService.findOne(+id);
+  @ApiResponse({ status: 200, description: 'Retorna uma unica saida', type: Saida })
+  async findOne(@Param('id') id: string) {
+    return this.saidasService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSaidaDto: UpdateSaidaDto) {
-    return this.saidasService.update(+id, updateSaidaDto);
+  @Put(':id')
+  @ApiResponse({ status: 201, description: 'saida atualizada', type: Saida })
+  async update(@Param('id') id: string, @Body() updateSaidaDto: UpdateSaidaDto) {
+    return this.saidasService.update(id, updateSaidaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.saidasService.remove(+id);
+  @ApiResponse({ status: 200, description: 'Saida excluída', type: Saida })
+  async remove(@Param('id') id: string) {
+    return this.saidasService.remove(id);
   }
 }

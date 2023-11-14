@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEntradaDto } from './dto/create-entrada.dto';
 import { UpdateEntradaDto } from './dto/update-entrada.dto';
+import { Model } from 'mongoose';
+import { Entrada } from './entities/entrada.entity';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class EntradasService {
-  create(createEntradaDto: CreateEntradaDto) {
-    return 'This action adds a new entrada';
+
+  constructor(@InjectModel('Entrada') private readonly entradaModel: Model<Entrada>) { }
+
+  async create(createColaboradorDto: CreateEntradaDto) {
+    const colab = new this.entradaModel(createColaboradorDto);
+    return await colab.save();
   }
 
-  findAll() {
-    return `This action returns all entradas`;
+  async findAll() {
+    return await this.entradaModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} entrada`;
+  async findOne(id: string) {
+    return await this.entradaModel.findById(id).exec();
   }
 
-  update(id: number, updateEntradaDto: UpdateEntradaDto) {
-    return `This action updates a #${id} entrada`;
+  async update(id: string, updateEntradaDto: UpdateEntradaDto) {
+    await this.entradaModel.updateOne({ _id: id }, updateEntradaDto).exec();
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} entrada`;
+  async remove(id: string) {
+    return await this.entradaModel.deleteOne({ _id: id }).exec();
   }
 }

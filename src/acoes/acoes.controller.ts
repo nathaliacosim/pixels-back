@@ -23,7 +23,7 @@ export class AcoesController {
   }
 
   @Get(':id')
-  @ApiResponse({ status: 200, description: 'Ação', type: Acao })
+  @ApiResponse({ status: 200, description: 'Retorna uma unica ação', type: Acao })
   async findOne(@Param('id') id: string): Promise<Acao> {
     return this.acoesService.findOne(id);
   }

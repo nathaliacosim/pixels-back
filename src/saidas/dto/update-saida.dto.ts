@@ -1,4 +1,39 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateSaidaDto } from './create-saida.dto';
+import { IsNotEmpty, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateSaidaDto extends PartialType(CreateSaidaDto) {}
+export class UpdateSaidaDto {
+    @IsNotEmpty({ message: 'O destino não pode ser vazio!' })
+    @ApiProperty()
+    @IsOptional()
+    destino: string;
+
+    @IsNotEmpty({ message: 'O valor não pode ser vazio!' })
+    @ApiProperty()
+    @IsOptional()
+    valor: number;
+
+    @IsNotEmpty({ message: 'A data/hora não pode ser vazia!' })
+    @ApiProperty()
+    @IsOptional()
+    dataHora: string;
+
+    @IsNotEmpty({ message: 'O documento não pode ser vazio!' })
+    @ApiProperty()
+    @IsOptional()
+    documento: string;
+
+    @IsNotEmpty({ message: 'A descrição não pode ser vazia!' })
+    @ApiProperty()
+    @IsOptional()
+    descricao: string;
+
+    @IsNotEmpty({ message: 'O comprovante não pode ser vazio!' })
+    @ApiProperty()
+    @IsOptional()
+    comprovante: string;
+
+    @IsNotEmpty({ message: 'A forma de pagamento não pode ser vazia!' })
+    @ApiProperty()
+    @IsOptional()
+    formaPagamento: string;
+}

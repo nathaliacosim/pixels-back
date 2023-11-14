@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSaidaDto } from './dto/create-saida.dto';
 import { UpdateSaidaDto } from './dto/update-saida.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Saida } from './entities/saida.entity';
 
 @Injectable()
 export class SaidasService {
-  create(createSaidaDto: CreateSaidaDto) {
-    return 'This action adds a new saida';
+  constructor(@InjectModel('Saida') private readonly saidaModel: Model<Saida>) { }
+
+  async create(createColaboradorDto: CreateSaidaDto) {
+    const colab = new this.saidaModel(createColaboradorDto);
+    return await colab.save();
   }
 
-  findAll() {
-    return `This action returns all saidas`;
+  async findAll() {
+    return await this.saidaModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} saida`;
+  async findOne(id: string) {
+    return await this.saidaModel.findById(id).exec();
   }
 
-  update(id: number, updateSaidaDto: UpdateSaidaDto) {
-    return `This action updates a #${id} saida`;
+  async update(id: string, updateSaidaDto: UpdateSaidaDto) {
+    await this.saidaModel.updateOne({ _id: id }, updateSaidaDto).exec();
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} saida`;
+  async remove(id: string) {
+    return await this.saidaModel.deleteOne({ _id: id }).exec();
   }
 }
