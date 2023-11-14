@@ -1,34 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { ColaboradoresService } from './colaboradores.service';
-import { CreateColaboradoreDto } from './dto/create-colaboradore.dto';
-import { UpdateColaboradoreDto } from './dto/update-colaboradore.dto';
+import { CreateColaboradorDto } from './dto/create-colaborador.dto';
+import { UpdateColaboradorDto } from './dto/update-colaborador.dto';
+import { Colaborador } from './entities/colaborador.entity';
 
 @Controller('colaboradores')
 export class ColaboradoresController {
-  constructor(private readonly colaboradoresService: ColaboradoresService) {}
+  constructor(private readonly colaboradoresService: ColaboradoresService) { }
 
   @Post()
-  create(@Body() createColaboradoreDto: CreateColaboradoreDto) {
-    return this.colaboradoresService.create(createColaboradoreDto);
+  async create(@Body() createColaboradorDto: CreateColaboradorDto) {
+    return this.colaboradoresService.create(createColaboradorDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Colaborador[]> {
     return this.colaboradoresService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.colaboradoresService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<Colaborador> {
+    return this.colaboradoresService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateColaboradoreDto: UpdateColaboradoreDto) {
-    return this.colaboradoresService.update(+id, updateColaboradoreDto);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateColaboradorDto: UpdateColaboradorDto): Promise<Colaborador> {
+    return this.colaboradoresService.update(id, updateColaboradorDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.colaboradoresService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.colaboradoresService.remove(id);
   }
 }

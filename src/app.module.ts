@@ -7,7 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://pixelsdecarinho:<senha>@pixels.rb1rza5.mongodb.net/pixels?retryWrites=true&w=majority'),
+    MongooseModule.forRoot('mongodb+srv://pixelsdecarinho:ZJEFnKX1m5FwKq7u@pixels.rb1rza5.mongodb.net/pixels?retryWrites=true&w=majority'),
     EntradasModule,
     SaidasModule,
     ColaboradoresModule,

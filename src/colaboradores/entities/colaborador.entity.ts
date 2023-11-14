@@ -3,30 +3,26 @@ import { IsNotEmpty } from 'class-validator';
 import { Document } from 'mongoose';
 
 @Schema()
-export class Acao extends Document {
+export class Colaborador extends Document {
     @Prop()
     @IsNotEmpty()
     nome: string;
 
     @Prop()
     @IsNotEmpty()
-    local: string;
+    cidade: string;
 
     @Prop()
     @IsNotEmpty()
-    dataHora: Date = new Date();
+    dataAdmissao: Date = new Date();
 
     @Prop()
     @IsNotEmpty()
-    arrecadacao: string;
+    tipoParticipacao: string;
 
     @Prop()
     @IsNotEmpty()
-    faixaEtaria: string;
-
-    @Prop()
-    @IsNotEmpty()
-    observacoes: string;
+    foto: string;
 }
 
-export const AcaoSchema = SchemaFactory.createForClass(Acao);
+export const ColaboradorSchema = SchemaFactory.createForClass(Colaborador);
