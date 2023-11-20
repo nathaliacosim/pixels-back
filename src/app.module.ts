@@ -6,8 +6,16 @@ import { AcoesModule } from './acoes/acoes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CorsMiddleware } from './cors.middleware';
 import * as dotenv from 'dotenv';
+
+// Carregar as variáveis de ambiente
+dotenv.config();
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
+
+// Verificar se as variáveis de ambiente necessárias estão definidas
+if (!dbUser || !dbPassword) {
+  throw new Error('Variáveis de ambiente DB_USER ou DB_PASSWORD não definidas.');
+}
 
 @Module({
   imports: [
@@ -15,8 +23,10 @@ const dbPassword = process.env.DB_PASSWORD;
     EntradasModule,
     SaidasModule,
     ColaboradoresModule,
-    AcoesModule]
+    AcoesModule
+  ],
 })
+
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(CorsMiddleware).forRoutes('*');
