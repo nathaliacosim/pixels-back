@@ -4,8 +4,7 @@ export const EntradaSchema = new mongoose.Schema(
     {
         nomeDoador: String,
         valor: Number,
-        dataHora: String,
-        documento: String,
+        dataHora: String
     },
     {
         collection: 'entradas'

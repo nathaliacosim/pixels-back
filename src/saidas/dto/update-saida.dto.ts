@@ -17,20 +17,10 @@ export class UpdateSaidaDto {
     @IsOptional()
     dataHora: string;
 
-    @IsNotEmpty({ message: 'O documento não pode ser vazio!' })
-    @ApiProperty()
-    @IsOptional()
-    documento: string;
-
     @IsNotEmpty({ message: 'A descrição não pode ser vazia!' })
     @ApiProperty()
     @IsOptional()
     descricao: string;
-
-    @IsNotEmpty({ message: 'O comprovante não pode ser vazio!' })
-    @ApiProperty()
-    @IsOptional()
-    comprovante: string;
 
     @IsNotEmpty({ message: 'A forma de pagamento não pode ser vazia!' })
     @ApiProperty()

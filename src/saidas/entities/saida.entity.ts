@@ -5,25 +5,30 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Saida extends Document {
-    @Prop()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'O destino não pode ser vazio!' })
     @ApiProperty()
-    nomeDoador: string;
+    @Prop()
+    destino: string;
 
-    @Prop()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'O valor não pode ser vazio!' })
     @ApiProperty()
+    @Prop()
     valor: number;
 
-    @Prop()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'A data/hora não pode ser vazia!' })
     @ApiProperty()
-    dataHora: Date = new Date();
+    @Prop()
+    dataHora: string;
 
-    @Prop()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'A descrição não pode ser vazia!' })
     @ApiProperty()
-    documento: string;
+    @Prop()
+    descricao: string;
+
+    @IsNotEmpty({ message: 'A forma de pagamento não pode ser vazia!' })
+    @ApiProperty()
+    @Prop()
+    formaPagamento: string;
 }
 
 export const SaidaSchema = SchemaFactory.createForClass(Saida);

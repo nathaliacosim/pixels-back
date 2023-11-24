@@ -15,10 +15,5 @@ export class UpdateEntradaDto {
     @ApiProperty()
     @IsNotEmpty({ message: 'A dataHora não pode ser vazia!' })
     @IsOptional()
-    dataHora: Date = new Date();
-
-    @ApiProperty()
-    @IsNotEmpty({ message: 'O documento não pode ser vazio!' })
-    @IsOptional()
-    documento: string;
+    dataHora: string;
 }

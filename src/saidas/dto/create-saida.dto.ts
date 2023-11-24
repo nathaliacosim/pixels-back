@@ -14,17 +14,9 @@ export class CreateSaidaDto {
     @ApiProperty()
     dataHora: string;
 
-    @IsNotEmpty({ message: 'O documento não pode ser vazio!' })
-    @ApiProperty()
-    documento: string;
-
     @IsNotEmpty({ message: 'A descrição não pode ser vazia!' })
     @ApiProperty()
     descricao: string;
-
-    @IsNotEmpty({ message: 'O comprovante não pode ser vazio!' })
-    @ApiProperty()
-    comprovante: string;
 
     @IsNotEmpty({ message: 'A forma de pagamento não pode ser vazia!' })
     @ApiProperty()
