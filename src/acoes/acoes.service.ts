@@ -11,7 +11,7 @@ export class AcoesService {
   constructor(@InjectModel('Acao') private readonly acoesModel: Model<Acao>) { }
 
   async findAll() {
-    return await this.acoesModel.find().exec();
+    return await this.acoesModel.find().sort({ dataHora: 'desc' }).exec();
   }
 
   async findOne(id: string) {
