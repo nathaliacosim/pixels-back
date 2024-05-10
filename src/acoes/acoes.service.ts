@@ -7,11 +7,10 @@ import { CreateAcaoDto } from './dto/create-acao.dto';
 
 @Injectable()
 export class AcoesService {
-
-  constructor(@InjectModel('Acao') private readonly acoesModel: Model<Acao>) { }
+  constructor(@InjectModel('Acao') private readonly acoesModel: Model<Acao>) {}
 
   async findAll() {
-    return await this.acoesModel.find().sort({ dataHora: 'desc' }).exec();
+    return await this.acoesModel.find().sort({ _id: 'desc' }).exec();
   }
 
   async findOne(id: string) {

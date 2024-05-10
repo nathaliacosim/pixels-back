@@ -11,7 +11,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
-      transform: true
+      transform: true,
     }),
   );
 
@@ -25,7 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-
   await app.listen(3000);
 }
+
 bootstrap();
